@@ -102,3 +102,11 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Idea stuff
+.idea
+/.idea/.gitignore
+/.idea/local_film_aggregator.iml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/vcs.xml

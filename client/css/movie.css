@@ -1,0 +1,46 @@
+#seasons-container {
+    height: 50pt;
+    float: left;
+}
+
+.season-item {
+    margin-left: 5pt;
+    height: 50pt;
+    width: 50pt;
+    background: rgb(220, 237, 255);
+    float: left;
+    border-radius: 5pt;
+    text-align: center;
+    font-size: 40pt;
+}
+
+
+#language-container {
+    height: 50pt;
+    width: 45%;
+    font-size: 40pt;
+    border-radius: 5pt;
+    background: rgb(220, 237, 255);
+    margin-left: 2.5%;
+}
+
+#series-container {
+    height: 50pt;
+    width: 45%;
+    font-size: 40pt;
+    border-radius: 5pt;
+    background: rgb(220, 237, 255);
+    margin-left: 2.5%;
+}
+
+.serie-item {
+    background: rgb(220, 237, 255);
+    float: left;
+    border-radius: 5pt;
+    font-size: 40pt;
+}
+
+#player {
+    width: 80%;
+    margin-left: 10%;
+}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Local films aggregator movie</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/movie.css">
+    <script type="text/javascript" src="js/movie.js"></script>
+    <script type="text/javascript" src="js/utils.js"></script>
+</head>
+<body onload="load()">
+<div class="topBar">
+    <h1>Available seasons:</h1>
+    <div id="seasons-container">
+    </div>
+</div>
+<div class="topBar">
+    <h1>Available languages/series:</h1>
+    <select onchange="handleLanguageChange()" id="language-container"></select>
+    <select onchange="handleSerieChange()" id="series-container"></select>
+</div>
+<h1 id="movie-name"></h1>
+<h2 id="serie-name"></h2>
+<video id="player" controls="controls" onended="handleSerieEnded()"></video>
+</body>
+</html>
