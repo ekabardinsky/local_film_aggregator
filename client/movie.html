@@ -10,14 +10,10 @@
 </head>
 <body onload="load()">
 <div class="topBar">
-    <h1>Available seasons:</h1>
-    <div id="seasons-container">
-    </div>
-</div>
-<div class="topBar">
-    <h1>Available languages/series:</h1>
-    <select onchange="handleLanguageChange()" id="language-container"></select>
-    <select onchange="handleSerieChange()" id="series-container"></select>
+    <h1>Available seasons/languages/series:</h1>
+    <select onchange="handleSeasonChange()" id="seasons-container" class="dropdown-container"></select>
+    <select onchange="handleLanguageChange()" id="language-container" class="dropdown-container"></select>
+    <select onchange="handleSerieChange()" id="series-container" class="dropdown-container"></select>
 </div>
 <h1 id="movie-name"></h1>
 <h2 id="serie-name"></h2>

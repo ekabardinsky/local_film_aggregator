@@ -28,12 +28,14 @@ function drawSeasons(seasons, adapter) {
 }
 
 function drawSeason(season, adapter, id) {
-    return '<div onclick="handleSeasonItemClick(this)" adapter="' + adapter + '" url="' + season.url + '" class="season-item">' + id + '</div>';
+    return '<option adapter="' + adapter + '" url="' + season.url + '">' + id + '</option>';
 }
 
-function handleSeasonItemClick(e) {
-    var url = e.attributes.url.value;
-    var adapter = e.attributes.adapter.value;
+function handleSeasonChange() {
+    var seasonContainer = document.getElementById('seasons-container');
+    var currentSeason = seasonContainer.options[seasonContainer.selectedIndex];
+    var url = currentSeason.attributes.url.value;
+    var adapter = currentSeason.attributes.adapter.value;
 
     loadLanguages(url, adapter);
 }
@@ -61,7 +63,7 @@ function drawLanguages(languages, adapter) {
 }
 
 function drawLanguage(language, adapter) {
-    return '<option class="serie-item" url="' + language.url + '" adapter="' + adapter + '">' + language.language + '</option>';
+    return '<option url="' + language.url + '" adapter="' + adapter + '">' + language.language + '</option>';
 }
 
 function handleLanguageChange() {
@@ -94,7 +96,7 @@ function drawSeries(series) {
 }
 
 function drawSerie(serie) {
-    return '<option class="serie-item" title="' + serie.title + '" link="' + serie.link + '">' + serie.title + '</option>';
+    return '<option title="' + serie.title + '" link="' + serie.link + '">' + serie.title + '</option>';
 }
 
 function handleSerieChange() {
