@@ -1,20 +1,9 @@
-.dropdown-container {
-    height: 50pt;
-    width: 30%;
-    font-size: 40pt;
-    border-radius: 5pt;
-    background: rgb(220, 237, 255);
+#player {
+    width: 60%;
     margin-left: 2.5%;
 }
 
-.serie-item {
-    background: rgb(220, 237, 255);
-    float: left;
-    border-radius: 5pt;
-    font-size: 40pt;
-}
-
-#player {
+#iframe-container {
     width: 60%;
-    margin-left: 10%;
+    margin-left: 2.5%;
 }

@@ -1,0 +1,27 @@
+.topBar {
+    background: #8ccc8e;
+    width: 100%;
+    height: 100pt
+}
+
+.dropdown-container {
+    height: 50pt;
+    width: 20%;
+    font-size: 20pt;
+    border-radius: 5pt;
+    background: rgb(220, 237, 255);
+    margin-left: 2.5%;
+}
+
+.button {
+    height: 50pt;
+    width: 20%;
+    font-size: 20pt;
+    border-radius: 5pt;
+    background: rgb(220, 237, 255);
+    margin-left: 2.5%;
+}
+
+.label {
+    margin-left: 2.5%;
+}

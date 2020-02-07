@@ -53,7 +53,8 @@ class DamnserialAdapter {
         tabElements.each((i, elem) => {
             if (get(elem, 'children[0].attribs.href')) {
                 parts.push({
-                    url: `${domain}/${elem.children[0].attribs.href}`
+                    url: `${domain}/${elem.children[0].attribs.href}`,
+                    iframe: false
                 });
             }
         });
@@ -66,7 +67,7 @@ class DamnserialAdapter {
         return parts;
     }
 
-    async getLanguage(req) {
+    async getVariants(req) {
         const {url} = req.body;
 
         // load page
@@ -80,7 +81,7 @@ class DamnserialAdapter {
         tabElements.each((i, elem) => {
             if (elem.attribs['data-playlist']) {
                 languages.push({
-                    language: elem.children[0].data,
+                    name: elem.children[0].data,
                     url: `${domain}/${elem.attribs['data-playlist']}`
                 });
             }

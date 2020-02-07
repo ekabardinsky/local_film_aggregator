@@ -1,9 +1,3 @@
-.topBar {
-    background: #8ccc8e;
-    width: 100%;
-    height: 100pt
-}
-
 #search-input {
     border-bottom-color: black;
     margin-left: 2.5%;
@@ -11,6 +5,7 @@
     width: 75%;
     height: 80pt;
     font-size: 20pt;
+    text-align: center;
 }
 
 #search-button {
@@ -38,8 +33,15 @@
 }
 
 .search-result-item-image {
-    height: 90%;
+    height: 70%;
 }
 .search-result-item-link {
+    margin-left: 10pt;
     margin-top: 10pt;
+}
+
+.search-result-item-adapter {
+    margin-left: 10pt;
+    margin-top: 10pt;
+    font-size: 15pt;
 }

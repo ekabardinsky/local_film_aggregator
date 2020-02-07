@@ -18,6 +18,7 @@ function drawSearchResults(response) {
 function constructItem(item) {
     return '<div class="search-result-item" url="' + item.url + '" adapter="' + item.adapter + '" title="' + item.title + '">' +
         '<div onclick="handleSearchItemClick(this)" class="search-result-item-image" style="background: url(' + item.cover + ') no-repeat center center;"></div>' +
+        '<div onclick="handleSearchItemClick(this)" class="search-result-item-adapter">' + item.adapter + '</div>' +
         '<div onclick="handleSearchItemClick(this)" class="search-result-item-link">' + item.title + '</div>' +
         '</div>';
 }

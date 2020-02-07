@@ -3,20 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Local films aggregator movie</title>
-    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/common.css">
     <link rel="stylesheet" type="text/css" href="css/movie.css">
     <script type="text/javascript" src="js/movie.js"></script>
     <script type="text/javascript" src="js/utils.js"></script>
 </head>
 <body onload="load()">
 <div class="topBar">
-    <h1>Available seasons/languages/series:</h1>
-    <select onchange="handleSeasonChange()" id="seasons-container" class="dropdown-container"></select>
-    <select onchange="handleLanguageChange()" id="language-container" class="dropdown-container"></select>
-    <select onchange="handleSerieChange()" id="series-container" class="dropdown-container"></select>
+    <h1 class="label">Available videos:</h1>
+    <select onchange="handlePartChange()" id="parts-container" class="dropdown-container"></select>
+    <select onchange="handleVariantChange()" id="variants-container" class="dropdown-container"></select>
+    <select onchange="handleSubPartChange()" id="subParts-container" class="dropdown-container"></select>
+    <button onclick="handleBack()" class="button">Back</button>
 </div>
-<h1 id="movie-name"></h1>
-<h2 id="serie-name"></h2>
-<video id="player" controls="controls" onended="handleSerieEnded()"></video>
+<h1 id="part-name" class="label"></h1>
+<h2 id="subPart-name" class="label"></h2>
+<video id="player" controls="controls" onended="handleSubPartEnded()"></video>
+<div id="iframe-container"></div>
 </body>
 </html>

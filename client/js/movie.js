@@ -3,129 +3,149 @@ function load() {
     var adapter = getParameterByName('adapter');
     var title = getParameterByName('title');
 
-    var headerElement = document.getElementById("movie-name");
+    var headerElement = document.getElementById("part-name");
     headerElement.innerHTML = title;
 
+    loadParts(url, adapter);
+}
+
+function loadParts(url, adapter) {
     postData('/api/getParts/' + adapter, {url})
-        .then(function (seasons) {
-            drawSeasons(seasons, adapter);
+        .then(function (parts) {
+            drawParts(parts, adapter);
         });
 }
 
-function drawSeasons(seasons, adapter) {
-    var seasonsContainer = document.getElementById('seasons-container');
-    seasonsContainer.innerHTML = "";
+function drawParts(parts, adapter) {
+    if (parts.length === 1 && parts[0].iframe) {
+        // hide all parts/variants/subParts/player
+        var player = document.getElementById('player');
+        var partsContainer = document.getElementById('parts-container');
+        var variantsContainer = document.getElementById('variants-container');
+        var subPartsContainer = document.getElementById('subParts-container');
+
+        [player, partsContainer, variantsContainer, subPartsContainer].forEach(function (controller) {
+            controller.style.display = 'none';
+        });
+
+        var iframeContainer = document.getElementById('iframe-container');
+        iframeContainer.innerHTML = parts[0].iframeHtml;
+
+        return;
+    }
+
+    var partsContainer = document.getElementById('parts-container');
+    partsContainer.innerHTML = "";
     var content = "";
-    for (var i = 0; i < seasons.length; i++) {
-        content += drawSeason(seasons[i], adapter, i + 1);
+    for (var i = 0; i < parts.length; i++) {
+        content += drawPart(parts[i], adapter, i + 1);
     }
 
-    seasonsContainer.innerHTML = content;
+    partsContainer.innerHTML = content;
 
-    if (seasons.length > 0) {
-        loadLanguages(seasons[0], adapter)
+    if (parts.length > 0) {
+        loadVariants(parts[0], adapter)
     }
 }
 
-function drawSeason(season, adapter, id) {
-    return '<option adapter="' + adapter + '" url="' + season.url + '">' + id + '</option>';
+function drawPart(part, adapter, id) {
+    return '<option adapter="' + adapter + '" url="' + part.url + '">' + id + '</option>';
 }
 
-function handleSeasonChange() {
-    var seasonContainer = document.getElementById('seasons-container');
-    var currentSeason = seasonContainer.options[seasonContainer.selectedIndex];
-    var url = currentSeason.attributes.url.value;
-    var adapter = currentSeason.attributes.adapter.value;
+function handlePartChange() {
+    var partsContainer = document.getElementById('parts-container');
+    var currentPart = partsContainer.options[partsContainer.selectedIndex];
+    var url = currentPart.attributes.url.value;
+    var adapter = currentPart.attributes.adapter.value;
 
-    loadLanguages(url, adapter);
+    loadVariants(url, adapter);
 }
 
-function loadLanguages(url, adapter) {
-    postData('/api/getLanguage/' + adapter, {url})
-        .then(function (languages) {
-            drawLanguages(languages, adapter);
+function loadVariants(url, adapter) {
+    postData('/api/getVariants/' + adapter, {url})
+        .then(function (variants) {
+            drawVariants(variants, adapter);
         })
 }
 
-function drawLanguages(languages, adapter) {
-    var languageContainer = document.getElementById('language-container');
-    languageContainer.innerHTML = "";
+function drawVariants(variants, adapter) {
+    var variantsContainer = document.getElementById('variants-container');
+    variantsContainer.innerHTML = "";
     var content = "";
-    for (var i = 0; i < languages.length; i++) {
-        content += drawLanguage(languages[i], adapter);
+    for (var i = 0; i < variants.length; i++) {
+        content += drawVariant(variants[i], adapter);
     }
 
-    languageContainer.innerHTML = content;
+    variantsContainer.innerHTML = content;
 
-    if (languages.length > 0) {
-        loadSeason(languages[0].url, adapter)
+    if (variants.length > 0) {
+        loadSubParts(variants[0].url, adapter)
     }
 }
 
-function drawLanguage(language, adapter) {
-    return '<option url="' + language.url + '" adapter="' + adapter + '">' + language.language + '</option>';
+function drawVariant(variant, adapter) {
+    return '<option url="' + variant.url + '" adapter="' + adapter + '">' + variant.name + '</option>';
 }
 
-function handleLanguageChange() {
+function handleVariantChange() {
     // get link
-    var languageContainer = document.getElementById('language-container');
-    var currentLanguage = languageContainer.options[languageContainer.selectedIndex];
-    var url = currentLanguage.attributes.url.value;
-    var adapter = currentLanguage.attributes.adapter.value;
+    var variantsContainer = document.getElementById('variants-container');
+    var currentVariant = variantsContainer.options[variantsContainer.selectedIndex];
+    var url = currentVariant.attributes.url.value;
+    var adapter = currentVariant.attributes.adapter.value;
 
-    loadSeason(url, adapter);
+    loadSubParts(url, adapter);
 }
 
-function loadSeason(url, adapter) {
+function loadSubParts(url, adapter) {
     postData('/api/getSubParts/' + adapter, {url})
-        .then(drawSeries)
+        .then(drawSubParts)
 }
 
-function drawSeries(series) {
-    var seriesContainer = document.getElementById('series-container');
-    seriesContainer.innerHTML = "";
+function drawSubParts(subParts) {
+    var subPartsContainer = document.getElementById('subParts-container');
+    subPartsContainer.innerHTML = "";
     var content = "";
-    for (var i = 0; i < series.length; i++) {
-        content += drawSerie(series[i]);
+    for (var i = 0; i < subParts.length; i++) {
+        content += drawSubPart(subParts[i]);
     }
 
-    seriesContainer.innerHTML = content;
+    subPartsContainer.innerHTML = content;
 
-    // preload first serie
-    handleSerieChange();
+    // preload first sub part
+    handleSubPartChange();
 }
 
-function drawSerie(serie) {
-    return '<option title="' + serie.title + '" link="' + serie.link + '">' + serie.title + '</option>';
+function drawSubPart(subPart) {
+    return '<option title="' + subPart.title + '" link="' + subPart.link + '">' + subPart.title + '</option>';
 }
 
-function handleSerieChange() {
+function handleSubPartChange() {
     // get link
-    var seriesContainer = document.getElementById('series-container');
-    var currentSerie = seriesContainer.options[seriesContainer.selectedIndex];
-    var link = currentSerie.attributes.link.value;
-    var title = currentSerie.attributes.title.value;
+    var subPartContainer = document.getElementById('subParts-container');
+    var currentSubPart = subPartContainer.options[subPartContainer.selectedIndex];
+    var link = currentSubPart.attributes.link.value;
+    var title = currentSubPart.attributes.title.value;
 
     // update player
     var player = document.getElementById('player');
     player.pause();
     player.setAttribute("src", link);
-    // player.innerHTML = '<source src="' + link + '">';
 
-    // update serie name
-    var serieName = document.getElementById('serie-name');
-    serieName.innerHTML = title;
+    // update sub part name name
+    var subPartName = document.getElementById('subPart-name');
+    subPartName.innerHTML = title;
 }
 
-function handleSerieEnded() {
+function handleSubPartEnded() {
     // increase selected index
-    var seriesContainer = document.getElementById('series-container');
-    seriesContainer.selectedIndex = seriesContainer.selectedIndex + 1;
+    var subPartContainer = document.getElementById('subParts-container');
+    subPartContainer.selectedIndex = subPartContainer.selectedIndex + 1;
 
     // call handler to load video
-    handleSerieChange();
+    handleSubPartChange();
 
-    // load and play next serie
+    // load and play next sub part
     var player = document.getElementById('player');
     player.play();
 
@@ -139,4 +159,8 @@ function getParameterByName(name, url) {
     if (!results) return null;
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+function handleBack() {
+    window.location = '/';
 }

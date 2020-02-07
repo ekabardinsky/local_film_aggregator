@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 
 // adapters
 const DamnserialAdapter = require("./adapters/DamnserialAdapter");
-const adapters = [new DamnserialAdapter()];
+const KinoHorrorNetAdapter = require("./adapters/KinoHorrorNetAdapter");
+const adapters = [new DamnserialAdapter(), new KinoHorrorNetAdapter()];
 
 // init app
 const express = require("express");
@@ -20,7 +21,7 @@ const GenericOperationController = require("./controllers/GenericOperationContro
 new GenericOperationController(apiRoute, adapters, 'search');
 new GenericOperationController(apiRoute, adapters, 'getParts');
 new GenericOperationController(apiRoute, adapters, 'getSubParts');
-new GenericOperationController(apiRoute, adapters, 'getLanguage');
+new GenericOperationController(apiRoute, adapters, 'getVariants');
 
 // connect routes to basic path
 app.use('/api', apiRoute);
