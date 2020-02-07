@@ -1,0 +1,34 @@
+{
+  "name": "local_film_aggregator",
+  "version": "1.0.0",
+  "description": "Lightwight movie/serials aggregator for TV devices",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ekabardinsky/local_film_aggregator.git"
+  },
+  "keywords": [
+    "TV"
+  ],
+  "author": "Evgeny Kabardinsky",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ekabardinsky/local_film_aggregator/issues"
+  },
+  "homepage": "https://github.com/ekabardinsky/local_film_aggregator#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.17.1",
+    "express-async-await": "^1.1.0",
+    "install": "^0.13.0",
+    "lodash": "^4.17.15",
+    "log4js": "^6.1.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.5",
+    "string-strip-html": "^4.3.16"
+  }
+}
