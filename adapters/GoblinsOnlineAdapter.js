@@ -3,12 +3,12 @@ const cheerio = require('cheerio');
 const {get} = require('lodash');
 
 // constants
-const domain = 'https://kino-horror.net';
-const searchUrl = 'https://kino-horror.net/search/';
+const domain = 'http://goblins-online.ru';
+const searchUrl = 'http://goblins-online.ru/component/search/';
 
-class KinoHorrorNetAdapter {
+class GoblinsOnlineAdapter {
     constructor() {
-        this.name = 'KinoHorrorNet';
+        this.name = 'GoblinsOnline';
     }
 
     async search(req) {
@@ -17,28 +17,28 @@ class KinoHorrorNetAdapter {
         var options = {
             uri: searchUrl,
             qs: {
-                q: query,
-                t: 0,
-                p: 1
-            },
-            json: true
+                searchword: query,
+                searchphrase: 'all'
+            }
         };
 
         const response = await request(options);
         const $ = cheerio.load(response);
 
         // let's take first 10 results and don't lookup next page to stay faster
-        const items = $('.eBlock');
+        const items = $('.featured-blog-item');
         const searchResults = [];
 
         items.each((i, elem) => {
-            if (get(elem, 'children[0].children[0].children[0]')) {
-                const parentNode = $(elem).find('td');
-                const titleElement = $(parentNode).find('.eTitle a').get(0);
-                const url = titleElement.attribs.href;
-                const title = $(titleElement).text();
-                const coverRef = $(parentNode).find('.ulightbox').get(0).attribs.href;
-                const cover = `${domain}${coverRef}`;
+            // check cover. In case if no cover presented - this is not a movie item
+            const imgElement = $(elem).find('.item-image img').get(0);
+            if (imgElement) {
+                const title = $(elem).find('.result-title').text().trim();
+                const path = $(elem).find('.result-title a').get(0).attribs.href;
+                const imgPath = imgElement.attribs.src;
+
+                const url = `${domain}${path}`;
+                const cover = `${domain}${imgPath}`;
 
                 searchResults.push({
                     title,
@@ -61,7 +61,7 @@ class KinoHorrorNetAdapter {
         const $ = cheerio.load(response);
 
         // extract seasons
-        const iframe = $('#content1').html();
+        const iframe = $('.page-header iframe').get(0);
 
         // check if no players available
         if (!iframe) {
@@ -71,7 +71,7 @@ class KinoHorrorNetAdapter {
         return [{
             url,
             iframe: true,
-            iframeHtml: iframe
+            iframeHtml: $(iframe).parent().html()
         }];
     }
 
@@ -84,4 +84,4 @@ class KinoHorrorNetAdapter {
     }
 }
 
-module.exports = KinoHorrorNetAdapter;
+module.exports = GoblinsOnlineAdapter;

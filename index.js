@@ -5,7 +5,8 @@ const bodyParser = require('body-parser');
 // adapters
 const DamnserialAdapter = require("./adapters/DamnserialAdapter");
 const KinoHorrorNetAdapter = require("./adapters/KinoHorrorNetAdapter");
-const adapters = [new DamnserialAdapter(), new KinoHorrorNetAdapter()];
+const GoblinsOnlineAdapter = require("./adapters/GoblinsOnlineAdapter");
+const adapters = [new DamnserialAdapter(), new KinoHorrorNetAdapter(), new GoblinsOnlineAdapter()];
 
 // init app
 const express = require("express");
