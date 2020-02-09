@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Lightwight movie/serials aggregator for TV devices",
   "main": "index.js",
+  "engines": {
+    "node": "8.x"
+  },
   "scripts": {
     "start": "node index.js",
     "deploy": "now",
