@@ -1,4 +1,4 @@
-const appPort = 8080;
+const appPort = process.env.PORT || 8080;
 const logger = require("./utils/logger");
 const bodyParser = require('body-parser');
 
