@@ -4,6 +4,8 @@
   "description": "Lightwight movie/serials aggregator for TV devices",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "deploy": "now",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
