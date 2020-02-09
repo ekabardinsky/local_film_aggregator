@@ -125,6 +125,12 @@ function handleSubPartChange() {
     // get link
     var subPartContainer = document.getElementById('subParts-container');
     var currentSubPart = subPartContainer.options[subPartContainer.selectedIndex];
+
+    // handle no parts selected case
+    if (currentSubPart == null) {
+        return;
+    }
+
     var link = currentSubPart.attributes.link.value;
     var title = currentSubPart.attributes.title.value;
 

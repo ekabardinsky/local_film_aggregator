@@ -9,16 +9,16 @@
     <script type="text/javascript" src="js/utils.js"></script>
 </head>
 <body onload="load()">
-<div class="topBar">
-    <h1 id="options-header" class="label">Available videos:</h1>
+<div id="movie-topBar" class="topBar">
+    <h1 id="part-name" class="label"></h1>
     <select onchange="handlePartChange()" id="parts-container" class="dropdown-container"></select>
     <select onchange="handleVariantChange()" id="variants-container" class="dropdown-container"></select>
-    <select onchange="handleSubPartChange()" id="subParts-container" class="dropdown-container"></select>
     <button onclick="handleBack()" class="button">Back</button>
 </div>
-<h1 id="part-name" class="label"></h1>
 <h2 id="subPart-name" class="label"></h2>
-<video id="player" controls="controls" onended="handleSubPartEnded()"></video>
-<div id="iframe-container"></div>
+<div id="iframe-container">
+    <select onchange="handleSubPartChange()" id="subParts-container" class="dropdown-container" size="8"></select>
+    <video id="player" controls="controls" onended="handleSubPartEnded()"></video>
+</div>
 </body>
 </html>

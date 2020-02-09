@@ -1,7 +1,14 @@
+#subParts-container {
+    height: auto;
+}
+
+#movie-topBar {
+    height: 100pt;
+}
+
 #player {
     width: 60%;
     margin-left: 2.5%;
-    height: 300pt;
 }
 
 #iframe-container {
