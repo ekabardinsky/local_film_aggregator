@@ -23,9 +23,8 @@ function drawParts(parts, adapter) {
         var partsContainer = document.getElementById('parts-container');
         var variantsContainer = document.getElementById('variants-container');
         var subPartsContainer = document.getElementById('subParts-container');
-        var optionsHeader = document.getElementById('options-header');
 
-        [player, partsContainer, variantsContainer, subPartsContainer, optionsHeader].forEach(function (controller) {
+        [player, partsContainer, variantsContainer, subPartsContainer].forEach(function (controller) {
             controller.style.display = 'none';
         });
 
