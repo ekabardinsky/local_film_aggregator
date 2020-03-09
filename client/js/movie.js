@@ -12,19 +12,29 @@ function load() {
 function loadParts(url, adapter) {
     postData('/api/getParts/' + adapter, {url})
         .then(function (parts) {
+            window.parts = parts;
             drawParts(parts, adapter);
         });
 }
 
 function drawParts(parts, adapter) {
-    if (parts.length === 1 && parts[0].iframe) {
+    var partsContainer = document.getElementById('parts-container');
+    partsContainer.innerHTML = "";
+    var content = "";
+    for (var i = 0; i < parts.length; i++) {
+        content += drawPart(parts[i], adapter, i + 1, i);
+    }
+
+    partsContainer.innerHTML = content;
+
+    // handle iframe case
+    if (parts.length > 0 && parts[0].iframe) {
         // hide all parts/variants/subParts/player
         var player = document.getElementById('player');
-        var partsContainer = document.getElementById('parts-container');
         var variantsContainer = document.getElementById('variants-container');
         var subPartsContainer = document.getElementById('subParts-container');
 
-        [player, partsContainer, variantsContainer, subPartsContainer].forEach(function (controller) {
+        [player, variantsContainer, subPartsContainer].forEach(function (controller) {
             controller.style.display = 'none';
         });
 
@@ -32,38 +42,38 @@ function drawParts(parts, adapter) {
         iframeContainer.innerHTML = parts[0].iframeHtml;
 
         return;
-    }
-
-    var partsContainer = document.getElementById('parts-container');
-    partsContainer.innerHTML = "";
-    var content = "";
-    for (var i = 0; i < parts.length; i++) {
-        content += drawPart(parts[i], adapter, i + 1);
-    }
-
-    partsContainer.innerHTML = content;
-
-    if (parts.length > 0) {
-        loadVariants(parts[0].url, adapter)
+    } else {
+        if (parts.length > 0) {
+            loadVariants(parts[0].url, adapter)
+        }
     }
 }
 
-function drawPart(part, adapter, id) {
-    return '<option adapter="' + adapter + '" url="' + part.url + '">' + id + '</option>';
+function drawPart(part, adapter, id, index) {
+    return '<option adapter="' + adapter + '" index="' + index + '">' + id + '</option>';
 }
 
 function handlePartChange() {
     var partsContainer = document.getElementById('parts-container');
     var currentPart = partsContainer.options[partsContainer.selectedIndex];
-    var url = currentPart.attributes.url.value;
     var adapter = currentPart.attributes.adapter.value;
+    var index = currentPart.attributes.index.value;
+    var url = window.parts[index].url;
+    var iframe = window.parts[index].iframe;
+    var iframeHtml = window.parts[index].iframeHtml;
 
-    loadVariants(url, adapter);
+    if (iframe) {
+        var iframeContainer = document.getElementById('iframe-container');
+        iframeContainer.innerHTML = iframeHtml;
+    } else {
+        loadVariants(url, adapter);
+    }
 }
 
 function loadVariants(url, adapter) {
     postData('/api/getVariants/' + adapter, {url})
         .then(function (variants) {
+            window.variants = variants
             drawVariants(variants, adapter);
         })
 }
@@ -73,7 +83,7 @@ function drawVariants(variants, adapter) {
     variantsContainer.innerHTML = "";
     var content = "";
     for (var i = 0; i < variants.length; i++) {
-        content += drawVariant(variants[i], adapter);
+        content += drawVariant(variants[i], adapter, i);
     }
 
     variantsContainer.innerHTML = content;
@@ -83,15 +93,16 @@ function drawVariants(variants, adapter) {
     }
 }
 
-function drawVariant(variant, adapter) {
-    return '<option url="' + variant.url + '" adapter="' + adapter + '">' + variant.name + '</option>';
+function drawVariant(variant, adapter, index) {
+    return '<option index="' + index + '" adapter="' + adapter + '">' + variant.name + '</option>';
 }
 
 function handleVariantChange() {
     // get link
     var variantsContainer = document.getElementById('variants-container');
     var currentVariant = variantsContainer.options[variantsContainer.selectedIndex];
-    var url = currentVariant.attributes.url.value;
+    var index = currentVariant.attributes.index.value;
+    var url = window.variants[index].url;
     var adapter = currentVariant.attributes.adapter.value;
 
     loadSubParts(url, adapter);
