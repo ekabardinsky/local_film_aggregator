@@ -90,9 +90,10 @@ class LordfilmAdapter {
         try {
             const ellinagraypelUrl = `https://api${Date.now()}.ellinagraypel.com/autochange/info/kinopoisk?id=${kpId}`;
             const ellinagraypelResponse = await request({uri: ellinagraypelUrl, json: true});
+            const url = get(ellinagraypelResponse, 'url');
 
-            if (ellinagraypelResponse.url) {
-                iframes.add(`<iframe width="640" height="320" src="${ellinagraypelResponse.url}" allowfullscreen></iframe>`);
+            if (url) {
+                iframes.add(`<iframe width="640" height="320" src="${url}" allowfullscreen></iframe>`);
             }
         } catch (e) {
             // do nothing
