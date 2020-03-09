@@ -1,4 +1,5 @@
 const {flatten} = require('lodash');
+const config = require('../config');
 
 class GenericOperationController {
     constructor(router, adapters, operation) {
@@ -11,7 +12,15 @@ class GenericOperationController {
 
     async runOperation(req, res) {
         const operationInstances = this.adapters.map(async (adapter) => {
-            return adapter[this.operation](req);
+            return adapter[this.operation](req).catch(error => {
+                return {
+                    title: `Error occurred`,
+                    url: '',
+                    cover: config.links.errorCover,
+                    adapter: adapter.name,
+                    id: 'error'
+                }
+            });
         });
 
         const operationResults = await Promise.all(

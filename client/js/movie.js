@@ -44,7 +44,7 @@ function drawParts(parts, adapter) {
     partsContainer.innerHTML = content;
 
     if (parts.length > 0) {
-        loadVariants(parts[0], adapter)
+        loadVariants(parts[0].url, adapter)
     }
 }
 

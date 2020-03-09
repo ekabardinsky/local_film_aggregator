@@ -82,14 +82,16 @@ class DamnserialAdapter {
             if (elem.attribs['data-playlist']) {
                 languages.push({
                     name: elem.children[0].data,
-                    url: `${domain}/${elem.attribs['data-playlist']}`
+                    url: `${domain}${elem.attribs['data-playlist']}`
                 });
             }
         });
 
-        // check if no other seasons available
+        // check if no other languages available
         if (languages.length === 0) {
-            return [{url}];
+            // try to parse page with regexp
+            const innerHtml = $('#player_wrap script').html();
+            return [{name: 'Стандартный', url: `${domain}${innerHtml.match(/var defPlay="(.*)";/)[1]}`}];
         }
 
         return languages;
