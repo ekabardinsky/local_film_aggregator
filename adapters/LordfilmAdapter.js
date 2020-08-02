@@ -3,8 +3,8 @@ const cheerio = require('cheerio');
 const {get} = require('lodash');
 
 // constants
-const domain = 'http://x9.lordfilm6.tv';
-const searchUrl = 'http://x9.lordfilm6.tv/index.php';
+const domain = 'http://u5.lordfilm7.tv/';
+const searchUrl = 'http://u5.lordfilm7.tv//index.php';
 
 class LordfilmAdapter {
     constructor() {
