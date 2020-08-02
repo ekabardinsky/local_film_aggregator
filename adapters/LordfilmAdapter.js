@@ -88,7 +88,7 @@ class LordfilmAdapter {
         // extract external players
         const kpId = $.html().match(/kp_id =(.*);/)[1].trim();
         try {
-            const ellinagraypelUrl = `https://api${Date.now()}.ellinagraypel.com/autochange/info/kinopoisk?id=${kpId}`;
+            const ellinagraypelUrl = `https://api${Date.now()}.kinogram.best/autochange/info/kinopoisk?id=${kpId}`;
             const ellinagraypelResponse = await request({uri: ellinagraypelUrl, json: true});
             const url = get(ellinagraypelResponse, 'url');
 
