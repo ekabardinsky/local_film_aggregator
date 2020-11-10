@@ -3,8 +3,8 @@ const cheerio = require('cheerio');
 const {get} = require('lodash');
 
 // constants
-const domain = 'http://u5.lordfilm7.tv/';
-const searchUrl = 'http://u5.lordfilm7.tv//index.php';
+const domain = 'http://o6.llordfilm.tv/';
+const searchUrl = 'http://o6.llordfilm.tv/index.php';
 
 class LordfilmAdapter {
     constructor() {
@@ -86,7 +86,7 @@ class LordfilmAdapter {
         });
 
         // extract external players
-        const kpId = $.html().match(/kp_id =(.*);/)[1].trim();
+        const kpId = $.html().match(/kp_id=(\d*)/)[1].trim();
         try {
             const ellinagraypelUrl = `https://api${Date.now()}.kinogram.best/autochange/info/kinopoisk?id=${kpId}`;
             const ellinagraypelResponse = await request({uri: ellinagraypelUrl, json: true});
