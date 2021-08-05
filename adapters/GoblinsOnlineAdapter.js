@@ -32,22 +32,20 @@ class GoblinsOnlineAdapter {
         items.each((i, elem) => {
             // check cover. In case if no cover presented - this is not a movie item
             const imgElement = $(elem).find('.item-image img').get(0);
-            if (imgElement) {
-                const title = $(elem).find('.result-title').text().trim();
-                const path = $(elem).find('.result-title a').get(0).attribs.href;
-                const imgPath = imgElement.attribs.src;
+            const title = $(elem).find('.result-title').text().trim();
+            const path = $(elem).find('.result-title a').get(0).attribs.href;
+            const imgPath = imgElement ? imgElement.attribs.src : '';
 
-                const url = `${domain}${path}`;
-                const cover = `${domain}${imgPath}`;
+            const url = `${domain}${path}`;
+            const cover = `${domain}${imgPath}`;
 
-                searchResults.push({
-                    title,
-                    url,
-                    cover,
-                    adapter: this.name,
-                    id: url
-                });
-            }
+            searchResults.push({
+                title,
+                url,
+                cover,
+                adapter: this.name,
+                id: url
+            });
         });
 
         return searchResults;

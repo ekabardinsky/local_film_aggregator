@@ -3,8 +3,8 @@ const cheerio = require('cheerio');
 const {get} = require('lodash');
 
 // constants
-const domain = 'http://o6.llordfilm.tv/';
-const searchUrl = 'http://o6.llordfilm.tv/index.php';
+const domain = 'https://ids2.lordfilm.id/';
+const searchUrl = 'https://ids2.lordfilm.id/index.php';
 
 class LordfilmAdapter {
     constructor() {
@@ -37,13 +37,13 @@ class LordfilmAdapter {
         const $ = cheerio.load(response);
 
         // let's take first 10 results and don't lookup next page to stay faster
-        const items = $('.sres-wrap');
+        const items = $('.th-item');
         const searchResults = [];
 
         items.each((i, elem) => {
-            const url = `${domain}${elem.attribs.href}`;
-            const cover = `${domain}${$(elem).find('img').get(0).attribs.src}`;
-            const title = $($(elem).find('h2').get(0)).text();
+            const url = $(elem).find('a').get(0).attribs.href;
+            const cover = $(elem).find('img').get(0).attribs.src;
+            const title = $($(elem).find('.th-title').get(0)).text();
 
             searchResults.push({
                 title,
