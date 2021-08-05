@@ -34,6 +34,7 @@
     "log4js": "^6.1.1",
     "request": "^2.88.0",
     "request-promise": "^4.2.5",
-    "string-strip-html": "^4.3.16"
+    "string-strip-html": "^4.3.16",
+    "socket.io": "^4.1.3"
   }
 }

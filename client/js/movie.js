@@ -181,3 +181,8 @@ function getParameterByName(name, url) {
 function handleBack() {
     window.location = '/';
 }
+
+function handleShare() {
+    var url = window.location.href
+    postData('/api/sendFilm', {url});
+}

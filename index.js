@@ -2,6 +2,9 @@ const appPort = process.env.PORT || 8080;
 const logger = require("./utils/logger");
 const bodyParser = require('body-parser');
 
+// services
+const DeviceServices = require('./services/DeviceServices');
+
 // adapters
 // const DamnserialAdapter = require("./adapters/DamnserialAdapter");
 //const KinoHorrorNetAdapter = require("./adapters/KinoHorrorNetAdapter");
@@ -30,6 +33,12 @@ app.use('/api', apiRoute);
 app.use(express.static('client'));
 
 // start to listening for calls
-app.listen(appPort, function () {
+const server = require('http').createServer(app);
+server.listen(appPort, function () {
     logger.info(`Api started at ${appPort}`);
 });
+
+// start listening for web sockets
+const deviceServices = new DeviceServices();
+deviceServices.init(server);
+new GenericOperationController(apiRoute, [deviceServices], 'sendFilm');

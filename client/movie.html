@@ -5,8 +5,10 @@
     <title>Local films aggregator movie</title>
     <link rel="stylesheet" type="text/css" href="css/common.css">
     <link rel="stylesheet" type="text/css" href="css/movie.css">
+    <script src="https://cdn.socket.io/4.1.2/socket.io.min.js" integrity="sha384-toS6mmwu70G0fw54EGlWWeA4z3dyJ+dlXBtSURSKN4vyRFOcxd3Bzjj/AoOwY+Rg" crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/movie.js"></script>
     <script type="text/javascript" src="js/utils.js"></script>
+    <script type="text/javascript" src="js/share_listener.js"></script>
 </head>
 <body onload="load()">
 <div id="movie-topBar" class="topBar">
@@ -14,6 +16,7 @@
     <select onchange="handlePartChange()" id="parts-container" class="dropdown-container"></select>
     <select onchange="handleVariantChange()" id="variants-container" class="dropdown-container"></select>
     <button onclick="handleBack()" class="button">Back</button>
+    <button onclick="handleShare()" class="button">Share</button>
 </div>
 <h2 id="subPart-name" class="label"></h2>
 <div id="iframe-container">
