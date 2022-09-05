@@ -1,0 +1,7 @@
+<div id="content"></div>
+<script>
+    const element = document.getElementById('content');
+    const kpId = new URL(window.location.href).searchParams.get('kpId');
+    element.innerHTML = `<div id="yohoho" data-kinopoisk="${kpId}">`;
+</script>
+<script src="//yohoho.cc/yo.js"></script>

@@ -16,7 +16,7 @@ function drawSearchResults(response) {
 }
 
 function constructItem(item) {
-    return '<div class="search-result-item" url="' + item.url + '" adapter="' + item.adapter + '" title="' + item.title + '">' +
+    return '<div class="search-result-item" is_yohoho="' + item.isYohoho + '" url="' + item.url + '" adapter="' + item.adapter + '" title="' + item.title + '">' +
         '<div onclick="handleSearchItemClick(this)" class="search-result-item-image" style="background: url(' + item.cover + ') no-repeat center center;"></div>' +
         '<div onclick="handleSearchItemClick(this)" class="search-result-item-adapter">' + item.adapter + '</div>' +
         '<div onclick="handleSearchItemClick(this)" class="search-result-item-link">' + item.title + '</div>' +
@@ -24,8 +24,14 @@ function constructItem(item) {
 }
 
 function handleSearchItemClick(e) {
+    var isYohoho = e.parentElement.attributes.is_yohoho.value;
     var url = e.parentElement.attributes.url.value;
     var adapter = e.parentElement.attributes.adapter.value;
     var title = e.parentElement.attributes.title.value;
-    window.location = 'movie.html?url=' + url + '&adapter=' + adapter + '&title=' + title;
+
+    if (isYohoho) {
+        window.location = url;
+    } else {
+        window.location = 'movie.html?url=' + url + '&adapter=' + adapter + '&title=' + title;
+    }
 }
