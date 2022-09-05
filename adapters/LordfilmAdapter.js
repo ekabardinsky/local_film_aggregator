@@ -3,8 +3,7 @@ const cheerio = require('cheerio');
 const {get} = require('lodash');
 
 // constants
-const domain = 'https://ids2.lordfilm.id/';
-const searchUrl = 'https://ids2.lordfilm.id/index.php';
+const searchUrl = 'https://21-hd.lorfil.lol//index.php';
 
 class LordfilmAdapter {
     constructor() {
@@ -23,7 +22,6 @@ class LordfilmAdapter {
                 do: 'search',
                 subaction: 'search',
                 search_start: 0,
-                result_from: 1,
                 story: query
             },
             headers: {
