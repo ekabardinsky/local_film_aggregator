@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 const {get} = require('lodash');
 
 // constants
-const searchUrl = 'https://21-hd.lorfil.lol//index.php';
+const searchUrl = 'https://lordfilm6.lorfil.lol/index.php';
 
 class LordfilmAdapter {
     constructor() {

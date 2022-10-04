@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 const {get} = require('lodash');
 
 // constants
-const domain = 'https://jfe5.jetfilm.club';
+const domain = 'https://jfe6.jetfilm.club/';
 const searchUrl = `${domain}/search`;
 
 class JetfilmAdapter {
